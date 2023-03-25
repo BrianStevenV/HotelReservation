@@ -3,16 +3,14 @@ package com.makaia.HotelWorkshop.Modules;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "Customer")
-public class Customer {
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "customer")
-    @JsonIgnoreProperties("customer")
-    private List<Reservation> reservations;
+@Table(name = "customer")
+public class Customer implements Serializable {
+
     @Id
-    @Column(name = "dni")
     private Integer dni;
     @Column(name = "firstName", length = 50)
     private String firstName;
@@ -25,14 +23,10 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
-    public Customer(Integer dni, String firstName, String lastName, String address, Integer age, String email) {
-        this.dni = dni;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.age = age;
-        this.email = email;
-    }
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "customer")
+    @JsonIgnoreProperties("customer")
+    private List<Reservation> reservations;
+
 
     public Integer getDni() {
         return dni;

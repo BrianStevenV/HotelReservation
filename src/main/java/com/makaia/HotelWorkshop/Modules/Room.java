@@ -3,27 +3,26 @@ package com.makaia.HotelWorkshop.Modules;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "Room")
-public class Room {
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "room")
-    @JsonIgnoreProperties("room")
-    private List<Reservation> reservations;
+@Table(name = "room")
+public class Room implements Serializable {
+
     @Id
-    @Column(name = "numberRoom")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer numberRoom;
     @Column(name = "roomType")
     private String roomType;
     @Column(name = "price")
     private Double price;
 
-    public Room(Integer numberRoom, String roomType, Double price) {
-        this.numberRoom = numberRoom;
-        this.roomType = roomType;
-        this.price = price;
-    }
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "room")
+    @JsonIgnoreProperties("room")
+    private List<Reservation> reservations;
+
+
 
     public Integer getNumberRoom() {
         return numberRoom;

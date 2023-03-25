@@ -1,35 +1,33 @@
 package com.makaia.HotelWorkshop.Modules;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Reservation")
-public class Reservation {
+@Table(name = "reservation")
+public class Reservation implements Serializable {
     @Id
-    @Column(name = "reserveCode")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reserveCode;
     @Column(name = "reserveDate")
-    private Date reserveDate;
+    private LocalDate reserveDate;
     @Column(name = "totalValue")
     private Double totalValue;
     @ManyToOne
     @JoinColumn(name = "dni")
-    @Column(name = "dni")
+    @JsonIgnoreProperties("reservations")
     private Customer customer;
     @ManyToOne
     @JoinColumn(name = "numberRoom")
-    @Column(name = "roomNumber")
+    @JsonIgnoreProperties("reservations")
     private Room room;
 
-    public Reservation(Integer reserveCode, Date reserveDate, Double totalValue, Customer customer, Room room) {
-        this.reserveCode = reserveCode;
-        this.reserveDate = reserveDate;
-        this.totalValue = totalValue;
-        this.customer = customer;
-        this.room = room;
-    }
+
     private String generarCodigoReserva() {
         return UUID.randomUUID().toString();
     }
@@ -42,11 +40,11 @@ public class Reservation {
         this.reserveCode = reserveCode;
     }
 
-    public Date getReserveDate() {
+    public LocalDate getReserveDate() {
         return reserveDate;
     }
 
-    public void setReserveDate(Date reserveDate) {
+    public void setReserveDate(LocalDate reserveDate) {
         this.reserveDate = reserveDate;
     }
 

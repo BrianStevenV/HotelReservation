@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,22 @@ public class CustomerService {
         }   else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "DNI, FirstName and LastName are required.");
         }
+    }
+
+    public Optional<Customer> researchById(int id){
+        Optional<Customer> customer = customerRepository.findById(id);
+        if(customer.isEmpty()){
+
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There are Rooms available now.");
+        }
+        return customer;
+    }
+    public List<Customer> researchAll(){
+        List<Customer> customerList = (List<Customer>) customerRepository.findAll();
+        if(customerList.isEmpty()){
+
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "There are Rooms available now.");
+        }
+        return customerList;
     }
 }
