@@ -23,6 +23,16 @@ public class Customer implements Serializable {
     @Column(name = "email")
     private String email;
 
+    //constructor will be delete, only test.
+    public Customer(Integer dni, String firstName, String lastName, String address, Integer age, String email) {
+        this.dni = dni;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.age = age;
+        this.email = email;
+    }
+
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "customer")
     @JsonIgnoreProperties("customer")
     private List<Reservation> reservations;

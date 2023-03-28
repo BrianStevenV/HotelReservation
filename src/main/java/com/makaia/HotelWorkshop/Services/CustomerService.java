@@ -15,8 +15,13 @@ import java.util.Optional;
 
 @Service
 public class CustomerService {
-    @Autowired
+
     private CustomerRepository customerRepository;
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     public ResponseEntity<Customer> create(Customer customer){
         //Exceptions
         if(customer.getDni() != null ){

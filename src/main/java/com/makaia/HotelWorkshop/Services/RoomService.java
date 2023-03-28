@@ -17,8 +17,13 @@ import java.util.Optional;
 
 @Service
 public class RoomService {
-    @Autowired
     private RoomRepository roomRepository;
+
+    //Constructor will be delete, only testing <--
+    @Autowired
+    public RoomService(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
+    }
 
 
 
